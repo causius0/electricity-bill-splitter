@@ -3,6 +3,7 @@ import { useElectricityModel } from './hooks/useElectricityModel'
 import { useHistoricalData } from './hooks/useHistoricalData'
 import { DataManager } from './components/Import/DataManager'
 import { DecemberBaseline } from './components/December'
+import { DecemberBillSplit } from './components/DecemberBill'
 import { JanuaryBaseline } from './components/January'
 import { Calculations } from './components/Calculations'
 import './index.css'
@@ -10,7 +11,7 @@ import './index.css'
 function App() {
   const [outdoorTemp, setOutdoorTemp] = useState(30)
   const [actualUsage, setActualUsage] = useState(null)
-  const [mode, setMode] = useState('december') // 'december' | 'january' | 'calculations' | 'data'
+  const [mode, setMode] = useState('december') // 'december' | 'december-bill' | 'january' | 'calculations' | 'data'
 
   // Load historical data for time window calculations
   const { data: historicalData, loading: loadingData, importData, export: exportData, clearData, refresh: loadData } = useHistoricalData()
@@ -101,6 +102,22 @@ function App() {
             }}
           >
             December Baseline (Dec 3+)
+          </button>
+          <button
+            onClick={() => setMode('december-bill')}
+            style={{
+              padding: '12px 24px',
+              borderRadius: '8px',
+              border: 'none',
+              background: mode === 'december-bill' ? '#3b82f6' : '#e2e8f0',
+              color: mode === 'december-bill' ? 'white' : '#4a5568',
+              fontWeight: '600',
+              cursor: 'pointer',
+              fontSize: '16px',
+              transition: 'all 0.2s'
+            }}
+          >
+            December Bill (Nov 22-Dec 29)
           </button>
           <button
             onClick={() => setMode('january')}
@@ -205,6 +222,11 @@ function App() {
       {/* December Baseline Mode */}
       {mode === 'december' && (
         <DecemberBaseline historicalData={historicalData} outdoorTemp={outdoorTemp} />
+      )}
+
+      {/* December Bill Mode */}
+      {mode === 'december-bill' && (
+        <DecemberBillSplit historicalData={historicalData} />
       )}
 
       {/* January Baseline Mode */}

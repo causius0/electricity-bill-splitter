@@ -14,19 +14,30 @@
  * At legal minimum thermostat setting (60°F), baseline usage follows this linear
  * relationship with outdoor temperature.
  *
- * Example:
- * - At 30°F: 50.75 + (-0.888 × 30) = 24.11 kWh/day
- * - At 50°F: 50.75 + (-0.888 × 50) = 6.35 kWh/day
- * - At 70°F: 50.75 + (-0.888 × 70) = -11.41 kWh/day (negative = no heating needed)
+ * Example (updated Jan 2026 baseline from 9 days of data):
+ * - At 30°F: 50.97 + (-0.896 × 30) = 24.09 kWh/day
+ * - At 50°F: 50.97 + (-0.896 × 50) = 6.17 kWh/day
+ * - At 70°F: 50.97 + (-0.896 × 70) = -11.75 kWh/day (negative = no heating needed)
+ *
+ * Baseline calculated from Jan 2-10, 2026 data (R² = 0.9204)
  */
-export const LEGAL_MIN_INTERCEPT = 50.75; // kWh/day baseline
-export const LEGAL_MIN_SLOPE = -0.888; // kWh per °F
+export const LEGAL_MIN_INTERCEPT = 50.97; // kWh/day baseline
+export const LEGAL_MIN_SLOPE = -0.896; // kWh per °F
 
 /**
  * PECO electricity rate as of 2026
  * This includes generation, transmission, and distribution charges
+ *
+ * Updated to match actual bill (Nov 22 - Dec 29, 2025):
+ * - Total charges: $353.25 for 1,652 kWh
+ * - Effective rate: $0.2139/kWh
+ *
+ * Complete breakdown:
+ * - PECO Electric Delivery: $170.73
+ * - PECO Electric Supply: $182.52
+ * - Total: $353.25
  */
-export const COST_PER_KWH = 0.2061; // $/kWh
+export const COST_PER_KWH = 0.2139; // $/kWh (actual effective rate)
 
 /**
  * Reasonable bounds for legal minimum calculation

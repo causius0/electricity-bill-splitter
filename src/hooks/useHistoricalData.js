@@ -34,8 +34,8 @@ export function useHistoricalData() {
         return;
       }
 
-      // Load from embedded CSV file
-      const response = await fetch(HISTORICAL_DATA_PATH);
+      // Load from embedded CSV file with cache-busting
+      const response = await fetch(`${HISTORICAL_DATA_PATH}?t=${Date.now()}`);
       if (!response.ok) {
         throw new Error(`Failed to load CSV: ${response.statusText}`);
       }
